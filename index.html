@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>낙동강 수온 정보</title>
+<style>
+  body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+  .temp { font-size: 2em; color: #007acc; margin-top: 20px; }
+</style>
+</head>
+<body>
+<h1>🌊 낙동강 현재 수온</h1>
+<div class="temp" id="temp">불러오는 중...</div>
+
+<script>
+  const API_URL = "https://apis.data.go.kr/6260000/BusanRvrwtQltyInfoService/getRvrwtQltyInfo";
+  const SERVICE_KEY = "1TcBEfaeVj0nKdA3JfBPismv39rsS%2B%2BrMXUGubaIMo8IRQFDXW5zTaKkquZMas2nnPEfNV6ASYvND%2BvXYymW%2BQ%3D%3D";
+
+  async function fetchTemperature() {
+    try {
+      const response = await fetch(`${API_URL}?serviceKey=${SERVICE_KEY}&numOfRows=10&pageNo=1`);
+      const text = await response.text();
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(text, "application/xml");
+      const items = xml.getElementsByTagName("item");
+
+      let tempText = "데이터 없음";
+
+      for (let item of items) {
+        const riverName = item.getElementsByTagName("area_NAME")[0]?.textContent;
+        if (riverName === "낙동강") {
+          const temp = item.getElementsByTagName("water10")[0]?.textContent;
+          if (temp) {
+            tempText = `${temp} °C`;
+            break;
+          }
+        }
+      }
+
+      document.getElementById("temp").textContent = tempText;
+    } catch (error) {
+      console.error("에러 발생:", error);
+      document.getElementById("temp").textContent = "데이터를 불러올 수 없습니다.";
+    }
+  }
+
+  fetchTemperature();
+</script>
+</body>
+</html>
