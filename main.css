@@ -1,0 +1,85 @@
+main {
+  box-sizing: border-box;
+  padding: 110px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.Bgr {
+  z-index: -10;
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  position: fixed;
+}
+
+.wisesaying {
+  box-sizing: border-box;
+  padding: 35px 60px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 40px;
+  background-color: #ffffffd9;
+  box-shadow: 0px 0px 20px #28325457;
+}
+
+.temp-container {
+  transition: 0.2s;
+  cursor: default;
+  box-sizing: border-box;
+  padding: 80px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 40px;
+  background-color: #ffffffd9;
+  box-shadow: 0px 0px 20px #28325457;
+  flex-grow: 1;
+}
+
+.title {
+  margin: 0;
+  font-size: 45px;
+}
+
+hr {
+  width: 35px;
+  height: 35px;
+  border: none;
+  border-radius: 100px;
+  background: black;
+}
+
+.temp {
+  color: black;
+  font-size: 90px;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+}
+
+.made {
+  cursor: pointer;
+  margin: 15px;
+  position: fixed;
+  bottom: 0;
+  color: white;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+/* animation */
+.temp-container:hover {
+  transition: 0.2s;
+  transform: scale(1.03);
+}

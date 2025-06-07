@@ -1,51 +1,63 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>낙동강 수온 정보</title>
-<style>
-  body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-  .temp { font-size: 2em; color: #007acc; margin-top: 20px; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title> 낙동강 온도 </title>
+
+  <link rel="stylesheet" href="/main.css">
+
+  <style>
+    @font-face {
+      font-family: 'Ownglyph_meetme-Rg';
+      src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_1@1.0/Ownglyph_meetme-Rg.woff2') format('woff2');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Ownglyph_meetme-Rg';
+    }
+  </style>
 </head>
 <body>
-<h1>🌊 낙동강 현재 수온</h1>
-<div class="temp" id="temp">불러오는 중...</div>
+  <img src="Background.jpeg" class="Bgr">
 
-<script>
-  const API_URL = "https://apis.data.go.kr/6260000/BusanRvrwtQltyInfoService/getRvrwtQltyInfo";
-  const SERVICE_KEY = "1TcBEfaeVj0nKdA3JfBPismv39rsS%2B%2BrMXUGubaIMo8IRQFDXW5zTaKkquZMas2nnPEfNV6ASYvND%2BvXYymW%2BQ%3D%3D";
+  <main>
+    <!--
+      <div class="wisesaying">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <img src="/wisesaying.png" width="25px">
+          <h1 style="margin: 0; padding: 0; font-size: 20px;"> 오늘의 명언 </h1>
+        </div>
+        <div>
+          <p style="margin: 0; font-size: 20px;"> 자신을 믿어라. 그렇게 되면 어떤 것도 가능하다. </p>
+          <p style="margin: 0; color: #A7A7A7; font-size: 15px;"> - 나폴레온 힐 </p>        
+        </div>
+      </div>
+    -->
 
-  async function fetchTemperature() {
-    try {
-      const response = await fetch(`${API_URL}?serviceKey=${SERVICE_KEY}&numOfRows=10&pageNo=1`);
-      const text = await response.text();
-      const parser = new DOMParser();
-      const xml = parser.parseFromString(text, "application/xml");
-      const items = xml.getElementsByTagName("item");
+    <div class="temp-container">
+      <h1 class="title"> 🌊 낙동강 온도 </h1>
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 30px;">
+          <hr id="status">
+          <div class="temp" id="temp"> ... </div>        
+        </div>
+        <p id="time-info" style="margin: 0; font-size: 24px;"></p>        
+      </div>
 
-      let tempText = "데이터 없음";
+    </div>    
+  </main>
 
-      for (let item of items) {
-        const riverName = item.getElementsByTagName("area_NAME")[0]?.textContent;
-        if (riverName === "낙동강") {
-          const temp = item.getElementsByTagName("water10")[0]?.textContent;
-          if (temp) {
-            tempText = `${temp} °C`;
-            break;
-          }
-        }
-      }
-
-      document.getElementById("temp").textContent = tempText;
-    } catch (error) {
-      console.error("에러 발생:", error);
-      document.getElementById("temp").textContent = "데이터를 불러올 수 없습니다.";
-    }
-  }
-
-  fetchTemperature();
-</script>
+  <footer>
+    <a href="https://github.com/shusbox/nakdong" class="made"> Design / Create by 1215 진수화 </a>
+  </footer>
+  <script src="/main.js"></script>
 </body>
 </html>
